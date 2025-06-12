@@ -63,6 +63,7 @@ override_window_class(void)
 static void
 window_realize(GtkWindow *window)
 {
+	
 	disable_csd(window);
 	
 	orig_window_realize(GTK_WIDGET(window));
@@ -76,8 +77,12 @@ disable_csd(GtkWindow *window)
 	*/
 
 	// libhandy windows do not support disabling CSDs, so we need to check for that
+	GType MozContainer_type = g_type_from_name("MozContainer");
 	GType HdyWindow_type = g_type_from_name("HdyWindow");
-	if (HdyWindow_type) {
+
+	if (MozContainer_type) {
+		return;
+	} else if (HdyWindow_type) {
 	    GtkStyleContext *context = gtk_widget_get_style_context(GTK_WIDGET(window));
 		if (gtk_style_context_has_class(context, "unified")) {
 			// libhandy windows *always* have the unified class, so if we detect the HdyWindow type
@@ -85,6 +90,11 @@ disable_csd(GtkWindow *window)
 			return;
 		}
 	}
+
+	/*GType MozContainer_type = g_type_from_name("MozContainer");
+	if (MozContainer_type) {
+		printf("hi!\n");
+		}*/
 	
 	GtkWidget *titlebar = gtk_window_get_titlebar(window);
 

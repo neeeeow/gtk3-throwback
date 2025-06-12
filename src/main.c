@@ -35,7 +35,7 @@ GHashTable *icon_label_map = NULL;
 G_MODULE_EXPORT void
 gtk_module_init(gint *argc, gchar ***argv[])
 {
-
+	
 	// Initialise and populate our hash tables
 	if (!label_icon_map) {
 		label_icon_map = g_hash_table_new(g_str_hash, g_str_equal);
@@ -201,7 +201,7 @@ gtk_module_init(gint *argc, gchar ***argv[])
 		g_hash_table_insert(icon_label_map, "zoom-in", "Zoom _In");
 		g_hash_table_insert(icon_label_map, "zoom-out", "Zoom _Out");
 	}
-
+	
 	const gchar *csd_env = g_getenv("GTK_CSD");
 	if (csd_env) {
 
